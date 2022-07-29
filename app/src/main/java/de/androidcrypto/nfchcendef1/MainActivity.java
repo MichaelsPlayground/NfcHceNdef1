@@ -5,10 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
@@ -45,8 +50,10 @@ public class MainActivity extends AppCompatActivity {
 
                     runOnUiThread(new Runnable() {
                         public void run() {
-                            t.setText(dt.toString());
-                        }});
+                            //t.setText(dt.toString());
+                            t.setText(getTimestamp());
+                        }
+                    });
                 }
 
 
@@ -62,4 +69,14 @@ public class MainActivity extends AppCompatActivity {
         };
 
         t.scheduleAtFixedRate(task, 0, 1000);    }
+
+    public static String getTimestamp() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return ZonedDateTime
+                    .now(ZoneId.systemDefault())
+                    .format(DateTimeFormatter.ofPattern("uuuu.MM.dd HH:mm:ss"));
+        } else {
+            return new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(new Date());
+        }
+    }
 }
