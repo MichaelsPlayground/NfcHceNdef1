@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">NfcHceNdef1</string>
+    <string name="aiddescription">NFC Clock</string>
+    <string name="servicedesc">NFC Clock</string>
+</resources>
